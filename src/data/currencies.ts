@@ -323,7 +323,7 @@ export const DEFAULT_FAVORITES: string[] = ['MYR', 'JPY', 'USD', 'THB', 'EUR', '
 
 export const DEFAULT_MAS_CONFIG: MasApiConfig = {
   apiKey: '',
-  endpointUrl: 'https://eservices.mas.gov.sg/api/action/datastore/search.json',
+  endpointUrl: 'https://eservices.mas.gov.sg/apimg-gw/server/monthly_statistical_bulletin_non610ora/exchange_rates_end_of_period_daily/views/exchange_rates_end_of_period_daily',
   autoRefreshInterval: 30,
   useLiveSimulation: true,
   lastSyncTimestamp: Date.now()

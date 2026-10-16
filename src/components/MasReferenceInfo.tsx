@@ -99,10 +99,12 @@ export const MasReferenceInfo: React.FC<MasReferenceInfoProps> = ({ onOpenMasCon
         </p>
 
         <div className="bg-slate-950/80 rounded-lg p-4 font-mono text-xs text-slate-300 space-y-2 border border-slate-800">
-          <div className="text-emerald-400">// Official MAS E-Services Data Catalog</div>
-          <div>Resource ID: <span className="text-amber-300">95932927-c8bc-4e7a-b484-68a66a24edfe</span></div>
-          <div>Endpoint: <span className="text-blue-300">https://eservices.mas.gov.sg/api/action/datastore/search.json</span></div>
-          <div>Parameters: <span className="text-purple-300">resource_id=...&limit=100&sort=end_of_day desc</span></div>
+          <div className="text-emerald-400">// Serverless Proxy Route (Root Level /api)</div>
+          <div>GET <span className="text-rose-400">/api/exchangerates?end_of_day=YYYY-MM-DD</span></div>
+          <div>GET <span className="text-emerald-400">/api/health</span></div>
+          <div className="text-slate-500 pt-1">// Upstream MAS APIMG Gateway:</div>
+          <div className="break-all text-[11px] text-blue-300">https://eservices.mas.gov.sg/apimg-gw/server/monthly_statistical_bulletin_non610ora/exchange_rates_end_of_period_daily/views/exchange_rates_end_of_period_daily</div>
+          <div>Header: <span className="text-amber-300">KeyId: &lt;MAS_KEY_ID&gt;</span></div>
         </div>
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">

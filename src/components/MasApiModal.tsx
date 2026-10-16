@@ -36,18 +36,29 @@ export const MasApiModal: React.FC<MasApiModalProps> = ({
 
   const handleTestConnection = async () => {
     setTestingStatus('testing');
-    setTestMessage('Verifying connectivity to Monetary Authority of Singapore gateway...');
+    setTestMessage('Pinging serverless endpoints /api/health and /api/exchangerates...');
 
-    // Simulate connection check
-    setTimeout(() => {
-      if (useLiveSimulation || apiKey.trim() || endpointUrl.includes('mas.gov.sg')) {
+    try {
+      const healthRes = await fetch('/api/health');
+      const healthData = await healthRes.json();
+      
+      const ratesRes = await fetch('/api/exchangerates');
+      const ratesData = await ratesRes.json();
+
+      if (ratesData.success) {
         setTestingStatus('success');
-        setTestMessage('Handshake verified. MAS API endpoint is reachable and ready for production ingest.');
+        setTestMessage(`Live MAS data active! Target date: ${ratesData.targetDate}. Live data pulled from MAS API Catalogue.`);
+      } else if (ratesData.configured === false) {
+        setTestingStatus('success');
+        setTestMessage(`Serverless endpoint /api/exchangerates is active. Status: ${ratesData.message}`);
       } else {
         setTestingStatus('error');
-        setTestMessage('Connection warning: Please verify endpoint URL or provide MAS credentials.');
+        setTestMessage(`MAS API response: ${ratesData.message || 'Verification complete'}`);
       }
-    }, 900);
+    } catch (err: any) {
+      setTestingStatus('error');
+      setTestMessage(`Serverless endpoint ping failed: ${err?.message || 'Network error'}`);
+    }
   };
 
   const handleSave = () => {
